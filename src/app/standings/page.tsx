@@ -22,7 +22,16 @@ export default function StandingsPage() {
 
   const getName = (id: string) => teams.find(t => t.id === id)?.name || id;
   const getLogo = (id: string) => teamAvatar(getName(id), teams.find(t => t.id === id)?.logo);
+  const shortName = (name: string) => {
+  const map: Record<string, string> = {
+    "Netaji House (Team-C)": "NH T-C",
+    "Bhagat Singh (Team-A)": "BS T-A",
+    "Gandhi House (Team-D)": "GH T-D",
+    "Team B": "T-B",
+  };
 
+  return map[name] || name;
+};
   return (
     <MainLayout>
       <div className="space-y-6 max-w-4xl mx-auto">
@@ -54,7 +63,9 @@ export default function StandingsPage() {
                     <td className="px-3 py-3">
                       <div className="flex items-center gap-3">
                         <img src={getLogo(s.team)} alt="" className="w-8 h-8 rounded-full border border-gray-100 object-cover" />
-                        <span className="font-semibold">{getName(s.team)}</span>
+                        <span className="font-semibold">
+  {shortName(getName(s.team))}
+</span>
                       </div>
                     </td>
                     <td className="text-center px-3 py-3 text-gray-500">{s.played}</td>
