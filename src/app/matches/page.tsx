@@ -60,7 +60,19 @@ export default function MatchesPage() {
           : filtered.map(m => (
             <div key={m.id} className={`bg-white dark:bg-gray-900 border rounded-2xl p-5 shadow-sm ${isLive(m) ? "border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10" : "border-gray-100 dark:border-gray-800"}`}>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs text-gray-400">{formatDate(m.date)}</span>
+                <div className="text-xs text-gray-400">
+  {new Date(m.date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  })}
+  {" • "}
+  {new Date(m.date).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  })}
+</div>
                 {isLive(m) ? <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-red-500 text-white animate-live">LIVE</span>
                 : m.status === "upcoming" ? <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">Upcoming</span>
                 : <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500">Finished</span>}
